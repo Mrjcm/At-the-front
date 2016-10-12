@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>音乐播放器</title>
+</head>
+<body>
+	<div class="con">
+    <audio id="aud"></audio>
+    <div class="tit">
+        当前歌曲：<strong id="name"></strong>
+    </div>
+    <p id="buffer"></p>
+    <div id="container" style="width:200px;height:10px;border:2px solid black;padding:none;">
+        <div id="stick" style="background-color:dodgerblue;height:10px;width:0px;"></div>
+    </div>
+    <div id="btn-group">
+        <button id="btn-playorpause">播放</button>
+        <button id="btn-prev">上一首</button>
+        <button id="btn-next">下一首</button>
+    </div>
+</div>
+<script type="text/javascript">
+	/*
+ * @author                zhengcong
+ * @date                2015-02-03
+ * @description        基于html5编写的音乐播发器demo
+ */
+    window.onload=function(){
+        //当前播放的歌曲索引
+        var currentIndex=-1;
+        //  播放器元素对象
+        var audio=document.getElementById("aud");
+        // 歌曲列表
+        var mlist=["曲目1.mp3","曲目2.mp3","曲目3.mp3"];
+        //歌曲路径
+        var msrc=["http://tg.vshh.net/vipcard/media/voice/0/0.mp3","http://tg.vshh.net/vipcard/media/voice/0/1.mp3","http://tg.vshh.net/vipcard/media/voice/0/2.mp3"];
+        //进度条
+        var stick=document.getElementById("stick");
+        //初始化函数
+        function finit(){
+            document.getElementById("name").innerHTML=mlist[0];
+        }
+        //播放停止按钮
+        var oPlayOrPause=document.getElementById("btn-playorpause");
+        // 播放或暂停
+        oPlayOrPause.onclick=fPlayMusic
+        function fPlayMusic(){
+            if(currentIndex==-1){
+                audio.src=msrc[0];
+                currentIndex=0;
+            }
+            if(audio.paused){
+                audio.play();
+                oPlayOrPause.innerHTML="暂停";
+            }else{
+                audio.pause();
+                oPlayOrPause.innerHTML="播放";
+            }
+        }
+        // 上一曲
+        document.getElementById("btn-prev").onclick=function(){
+            if (currentIndex == 0) {
+                currentIndex = mlist.length-1;
+                document.getElementById("name").innerHTML=mlist[currentIndex];
+            } else {
+                currentIndex--;
+                document.getElementById("name").innerHTML=mlist[currentIndex];
+            }
+            audio.src = msrc[currentIndex];
+            stick.style.width=0;
+            audio.play();
+            oPlayOrPause.innerHTML="暂停";
+        }
+        // 下一曲
+        document.getElementById("btn-next").onclick=function(){
+                 if (currentIndex == (mlist.length-1)) {
+                     currentIndex = 0;
+                     document.getElementById("name").innerHTML=mlist[0];
+                 } else {
+                     currentIndex++;
+                     document.getElementById("name").innerHTML=mlist[currentIndex];
+                 }
+                 audio.src = msrc[currentIndex];
+                 stick.style.width=0;
+                 audio.play();
+                 oPlayOrPause.innerHTML="暂停";
+             }
+        //播放进度条
+            audio.addEventListener('timeupdate',function(){
+                if (!isNaN(audio.duration)) {
+                    var progressValue = audio.currentTime/audio.duration*200;
+                    stick.style.width = parseInt(progressValue) + 'px';
+                };
+            },false);
+        //歌曲结束时
+        audio.addEventListener('ended',function(){
+            stick.style.width=0;
+            oPlayOrPause.innerHTML="播放";
+        },false);
+        //判断歌曲是否可以播放
+        audio.addEventListener('canplay',function(){
+            var buffer=document.getElementById("buffer");
+            buffer.style.display="none";
+        },false);
+        //监听歌曲是否缓冲
+        audio.addEventListener('loadstart',function(){
+            var buffer=document.getElementById("buffer");
+            buffer.style.display="block";
+            buffer.innerHTML="正在获取数据...";
+        },false);
+        //初始化
+        finit();
+    }
+</script>
+</body>
+</html>
