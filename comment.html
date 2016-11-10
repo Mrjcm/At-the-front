@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width,initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
+	<title></title>
+	<style type="text/css">
+		*{margin: 0;padding: 0;}
+		.comment-box{
+			width: 100%;
+			min-height:1300px;
+			margin-bottom: 80px;
+			font-size: 28px;
+		}
+		.clickmore{
+			text-align: center;
+			height: 40px;
+			color: #e6740f;
+		}
+		.comment-ipt{
+			width: 100%;
+			height: 300px;
+			background-color:#e4e4d5;
+			position: fixed;
+			bottom: 0;
+			display: none;
+			font-size: 28px;
+		}
+		.comment-btn{
+			width: 100%;
+			height: 80px;
+			text-align: center;
+			background-color: #f39c05;
+			font-size: 40px;
+			position:fixed;
+			bottom: 0;
+			line-height: 80px;
+			color: #fff;
+			font-size: 28px;
+		}
+		#textarea{
+			width: 99%;
+			height: 60%;
+		}
+		.comment-show dl{
+			width: 96%;
+			overflow: hidden;
+			padding: 10px 15px;
+		}
+		.comment-show dl dt{
+			width: 20%;
+			height:120px;
+			background-color: red;
+			float: left;
+		}
+		.comment-show dl dd{
+			width: 70%;
+			min-height:40px;
+			float: left;
+			margin-left: 20px;
+		}
+		.comment-show dl dd:nth-child(4){
+			margin-left: 100px;
+			width: 60px;
+			margin-left: 650px;
+			color: #5555b9;
+		}
+		.comment-show dl dd:nth-child(5){
+			width: 70%;height: 250px;
+			margin-left: 22%;
+			margin-top:1%;
+			font-size: 28px;
+		}
+		.calbkshow{display: none;}
+		.calbkshow input{
+			width: 20%;
+			height: 40px;
+			font-size: 28px;
+		}
+		.comment-ipt input{
+			width: 49%;
+			height: 80px;
+			font-size: 28px;
+		}
+		.text p span:nth-child(1){color:#de5817;}
+		#calbkipt{width: 100%;height:30%;}
+	</style>
+</head>
+<body>
+<!-- 评论回复开始 -->
+	<div class="comment-box">
+		<div class="comment-show">
+				<dl>
+					<dt>头像</dt>
+					<dd>
+						<span>大耳朵图图</span>
+						<span>2016-10-26</span>
+					</dd>
+					<dd class="text">
+						<p>评论内容评论内容评论内容评论内容评论内容评论内容评论内容评论内容评论</p>
+					</dd>
+					<dd class='calbk' onclick='cbipt(this);'>回复</dd>
+					<dd class="calbkshow">
+						<textarea name="" cols="30" rows="10" id="calbkipt"></textarea>
+						</br>
+						<input type="button" value="取消" class="calbk-clr" onclick='cbno(this);'/>
+						<input type="button" value="回复" class="calbk-sub" onclick='calbak(this);' />
+					</dd>
+				</dl>
+		</div>
+		<!-- 点击加载按钮 -->
+		<div class="clickmore">点击加载更多</div>
+	</div>
+	<!-- 点击留言按钮 -->
+	<div class="comment-btn">
+		我要留言
+	</div>
+	<!-- 评论框 -->
+	<div class="comment-ipt">
+		<textarea name="" id="textarea" cols="30" rows="10"></textarea>
+		</br>
+		<input type="button" value="取消" class="clr" />
+		<input type="button" value="发布" class="sub"  onclick="subb();" />
+	</div>
+	<script type="text/javascript">
+	// 自适应
+		window.onload = function(){
+			var wid =document.documentElement.clientWidth;
+			var scale = wid/750;
+			// 750为设计图宽度 元素大小就按设计图上测量的大小书写
+			document.body.style.zoom = scale;
+			window.onresize = function(){
+			var wid =document.documentElement.clientWidth;
+			var scale = wid/750;
+			document.body.style.zoom = scale;
+		}
+	}
+	</script>
+	<script src="jquery.1.10.2.js"></script>
+	<script type="text/javascript">
+	// 评论
+		$(".clr").click(function(){
+			$(".comment-ipt").css({display:"none"})
+		});
+		$(".comment-btn").click(function(){
+			$(".comment-ipt").css({display:"block"})
+		});
+    		function subb(){
+    		$(".comment-ipt").css({display:"none"})
+    		var textarea=$("#textarea").val();
+    		var str="<dl>"+
+					"<dt>头像</dt>"+
+					"<dd>"+
+						"<span>大耳朵图图</span>"+
+						"<span>2016-10-26</span>"+
+					"</dd>"+
+					"<dd class='text'>"+
+						"<p>"+textarea+"</p>"+
+					"</dd>"+
+					"<dd class='calbk' onclick='cbipt(this);'>回复</dd>"+
+					"<dd class='calbkshow'>"+
+						"<textarea name='' cols='30' rows='10' id='calbkipt'></textarea>"+
+						"</br>"+
+						"<input type='button' value='取消' class='calbk-clr' onclick='cbno(this);'/>"+
+						"<input type='button' value='回复' class='calbk-sub' onclick='calbak(this);'/>"+
+					"</dd>"+
+				"</dl>";
+			$(".comment-show").append(str);
+			$("#textarea").val("");
+		}
+
+	// 回复
+	function calbak(obj){
+		// console.log(obj);
+		var cabk=$(obj).siblings("#calbkipt").val();
+			var  str="<p>"+
+					"<span>大耳朵图图:</span>"+
+					""+cabk+""+
+					"</p>";
+			$(obj).parent().siblings(".calbk").css({display:"none"});
+			$(obj).parent(".calbkshow").css({display:"none"});
+			$(obj).parent().siblings(".text").append(str);
+			$("#calbkipt").val("");
+	}
+	function cbipt(obj){
+		$("#calbkipt").val("");
+		$(obj).next(".calbkshow").css({display:"block"});
+	}
+	function cbno(obj){
+		$(obj).siblings("#calbkipt").val("");
+		$(obj).parent(".calbkshow").css({display:"none"});
+	}
+	// 点击加载
+	$(".clickmore").click(function(){
+		var str="<dl>"+
+					"<dt>头像</dt>"+
+					"<dd>"+
+						"<span>大耳朵图图</span>"+
+						"<span>2016-10-26</span>"+
+					"</dd>"+
+					"<dd class='text'>"+
+						"<p>评论内容评论内容评论内容评论内容评论内容评论内容评论内容评论内容评论内容论内容评论内容评论内容评论内容</p>"+
+					"</dd>"+
+					"<dd class='calbk' onclick='cbipt(this);'>回复</dd>"+
+					"<dd class='calbkshow'>"+
+						"<textarea name='' cols='30' rows='10' id='calbkipt'></textarea>"+
+						"</br>"+
+						"<input type='button' value='取消' class='calbk-clr' onclick='cbno(this);'/>"+
+						"<input type='button' value='回复' class='calbk-sub' onclick='calbak(this);' />"+
+					"</dd>"+
+				"</dl>";
+		$(".comment-show").append(str);
+	})
+	</script>
+	<!-- 评论回复结尾 -->
+</body>
+</html>
