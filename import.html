@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<script src="http://code.jquery.com/jquery-latest.js"></script>
+</head>
+<style>
+	*{
+		margin: 0;
+		padding: 0;
+	}
+   body{
+   	overflow: hidden;
+   }
+   input{
+   	float: left;
+   }
+   div{
+   	overflow: hidden;
+   	width: 800px;
+   	margin-left: 300px;
+   	margin-top: 40px;
+   }
+	ul{
+    
+   overflow: hidden;
+   text-align: center;
+	}
+	li{  
+		width: 140px;
+		float: left;
+		list-style: none;
+		border: 2px solid black;
+	}
+</style>
+<body>
+	<input type="text" id="qa" value="请输入姓名"> <input type="button" value="提交">
+	<div>
+		<ul id="ul1">
+		<li>序号</li>
+		<li>名片</li>
+		<li>管理</li>
+	</ul>
+	</div>
+	<script>
+          $("#qa").focus(function(){
+          	$("#qa").val("");
+          })
+          $("input").eq(1).click(function(){
+          	if( $('#qa').val()==""){
+             alert("请输入");
+          	}else{
+          	 $("ul:last").after("<ul> <li>"+$('ul').length+"</li> <li>"+$('#qa').val() +"</li> <li>删除</li> </ul>");
+          	   $('#qa').val('');
+          	}
+          	$("ul li:last").click(function(){
+          		$(this).parent().remove();
+          	})
+         })
+	</script>
+</body>
+</html>
