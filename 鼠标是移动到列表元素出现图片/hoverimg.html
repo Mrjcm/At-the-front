@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	
+	<style>
+	*{
+		margin: 0;
+		padding: 0;
+		list-style:none;
+	}
+	#pictu1 ul{
+	width: 234px;
+	height: 30px;
+	cursor: pointer;
+	position: relative;
+	top: 0px;
+	font-size:16px;
+	margin-top:10px;
+}
+
+.video1,.video2,.video3,.video4,.video5,.video6,.video7,.video8,.video9{
+	width: 100px;
+	height: 100px;
+	background: url(imgs/video.png);
+	position: absolute;
+	top: 3px;
+	left: 70px;
+	display: none;	
+}
+.pictu1_1:hover .video1,.pictu1_2:hover .video2,.pictu1_3:hover .video3,.pictu1_4:hover .video4,.pictu1_5:hover .video5,.pictu1_6:hover .video6,.pictu1_7:hover .video7,.pictu1_8:hover .video8,.pictu1_9:hover .video9{
+	display:block ;
+}
+
+.nums1{
+	/*color: #FF3D00;*/
+	font-weight: 600px;
+    position: absolute;
+    bottom:8px;
+   left: 0px;
+}
+.titles1{	
+    position: absolute;
+    bottom:8px;
+   left: 20px;
+}
+#pictu1 .dates1{
+	/*color: gray;*/
+    position: absolute;
+    bottom:8px;
+   left: 168px;
+}
+	</style>
+</head>
+<body>
+<div id="pictu1">						
+	<ul class="pictu1_1" >
+		<li class="video1"></li>
+		<li class="nums1">1</li>
+		<li class="titles1">奔跑吧兄弟</li>							
+		<li class="dates1">至0422期</li>	
+	</ul>
+	<ul class="pictu1_2">
+		<li class="video2"></li>
+		<li class="nums1">2</li>
+		<li class="titles1">我是歌手</li>							
+		<li class="dates1">至0423期</li>		
+	</ul>
+	<ul class="pictu1_3">
+		<li class="video3"></li>
+		<li class="nums1">3</li>
+		<li class="titles1">我们相爱吧</li>							
+		<li class="dates1">至0423期</li>		
+	</ul>
+	<ul class="pictu1_4"> 
+		<li class="video4"></li>
+		<li class="nums1">4</li>
+		<li class="titles1">快乐大本营</li>							
+		<li class="dates1">至0423期</li>		
+	</ul>
+	<ul class="pictu1_5">
+		<li class="video5"></li>
+		<li class="nums1">5</li>
+		<li class="titles1">天天向上</li>							
+		<li class="dates1">至0423期</li>		
+	</ul>
+	<ul class="pictu1_6">
+		<li class="video6"></li>
+		<li class="nums1">6</li>
+		<li class="titles1">一路上有你</li>							
+		<li class="dates1">至0423期</li>		
+	</ul>
+	<ul class="pictu1_7">
+		<li class="video7"></li>
+		<li class="nums1">7</li>
+		<li class="titles1">非诚勿扰</li>							
+		<li class="dates1">至0423期</li>		
+	</ul>
+	<ul class="pictu1_8">
+		<li class="video8"></li>
+		<li class="nums1">8</li>
+		<li class="titles1">爱情保卫战</li>							
+		<li class="dates1">至0423期</li>		
+	</ul>
+	<ul class="pictu1_9">
+		<li class="video9"></li>
+		<li class="nums1">9</li>
+		<li class="titles1">最强大脑</li>							
+		<li class="dates1">至0423期</li>		
+	</ul>
+</div>
+<script>
+
+
+	var pic1=document.getElementById('pictu1');
+	var li=document.getElementsByTagName("li")
+	var pic1_ul=pic1.getElementsByTagName('ul');
+	pic1_ul[0].style.background="url(imgs/"+0+".jpg)";
+	pic1_ul[0].style.height=115+"px";
+	pic1_ul[0].style.color="white";	
+    for(var i=0;i<pic1_ul.length;i++ ){	
+    	pic1_ul[i].onmouseover=function(){
+    		for(var i=0;i<pic1_ul.length;i++){
+    			pic1_ul[i].style.height=30+'px';
+    			pic1_ul[i].style.background='';
+    			pic1_ul[i].style.color="black";
+    		}   			
+    		this.style.height=115+'px';
+    		this.style.color="white";   		
+ 			for(var k=0;k<9;k++){
+ 				if(this==pic1_ul[k]){
+ 					pic1_ul[k].style.background="url(imgs/"+k+".jpg)";
+ 					
+ 				}
+ 			}   			
+    	}
+    }
+</script>
+	
+</body>
+</html>
