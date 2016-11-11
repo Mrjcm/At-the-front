@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>css手表</title>
+	<style type="text/css">
+	/*logo字体*/
+        @import "https://fonts.googleapis.com/css?family=PT+Sans+Narrow";
+html, body {
+  width: 100%;
+  height: 100%;
+}
+
+body {
+  position: relative;
+  font-size: 12px;
+  font-family: 'PT Sans Narrow';
+  background: -webkit-linear-gradient(top right, #47C9AF 0%, #D9F5BE 100%) 100% no-repeat;
+  background: linear-gradient(to bottom left, #47C9AF 0%, #D9F5BE 100%) 100% no-repeat;
+}
+
+.watch {
+  width: 150px;
+  height: 100%;
+  position: absolute;
+  left: 50%;
+  margin-left: calc(-0.5 * 150px);
+}
+
+.strap {
+  background: #292929;
+  height: 100%;
+  width: 90px;
+  border-left: 5px solid #4a4a4a;
+  border-right: 5px solid #4a4a4a;
+  position: absolute;
+  left: 50%;
+  margin-left: calc(-0.5 * calc(90px + 10px));
+}
+
+.face {
+  background: #292929;
+  border: 5px solid #CDB380;
+  width: 140px;
+  height: 140px;
+  position: absolute;
+  top: 50%;
+  margin-top: calc(-0.5 * 150px);
+  box-shadow: 0 0 80px 0 rgba(0, 0, 0, 0.6), inset 0 0 50px 0 rgba(0, 0, 0, 0.6);
+}
+
+.numeral {
+  background: #4a4a4a;
+  height: 20px;
+  width: 4px;
+}
+
+.n-12, .n-6 {
+  position: absolute;
+  left: 50%;
+  margin-left: calc(-0.5 * 4px);
+}
+
+.n-3, .n-9 {
+  height: 4px;
+  width: 20px;
+  position: absolute;
+  top: 50%;
+  margin-top: calc(-0.5 * 4px);
+}
+
+.n-12 {
+  top: 5px;
+}
+
+.n-6 {
+  bottom: 5px;
+}
+
+.n-3 {
+  right: 5px;
+}
+
+.n-9 {
+  left: 5px;
+}
+
+.cntrpt {
+  background: #CDB380;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  position: absolute;
+  top: 50%;
+  margin-top: calc(-0.5 * 10px);
+  position: absolute;
+  left: 50%;
+  margin-left: calc(-0.5 * 10px);
+}
+
+.crown {
+  background: #4a4a4a;
+  height: 20px;
+  width: 10px;
+  right: -10px;
+  position: absolute;
+  top: 50%;
+  margin-top: calc(-0.5 * 20px);
+}
+
+.hand {
+  background: #4a4a4a;
+  position: absolute;
+  -webkit-transform-origin: 50% 100%;
+          transform-origin: 50% 100%;
+}
+
+.hours {
+  width: 6px;
+  height: calc(0.2 * 140px);
+  position: absolute;
+  left: 50%;
+  margin-left: calc(-0.5 * 6px);
+  top: calc(0.5 * 140px - calc(0.2 * 140px));
+}
+
+.mins {
+  width: 4px;
+  height: calc(0.3 * 140px);
+  position: absolute;
+  left: 50%;
+  margin-left: calc(-0.5 * 4px);
+  top: calc(0.5 * 140px - calc(0.3 * 140px));
+}
+
+.secs {
+  background: #BF4A67;
+  width: 2px;
+  height: calc(0.4 * 140px);
+  position: absolute;
+  left: 50%;
+  margin-left: calc(-0.5 * 2px);
+  top: calc(0.5 * 140px - calc(0.4 * 140px));
+}
+
+.day {
+  background: #292929;
+  color: #CDB380;
+  border: 1px solid #CDB380;
+  width: calc(0.13 * 140px);
+  height: calc(0.1 * 140px);
+  line-height: calc(0.1 * 140px);
+  text-align: center;
+  position: absolute;
+  top: 50%;
+  margin-top: calc(-0.5 * calc(0.13 * 140px));
+  right: 28px;
+}
+
+.logo {
+  color: #CDB380;
+  width: 40px;
+  letter-spacing: 5px;
+  height: 12px;
+  line-height: 12px;
+  text-align: center;
+  position: absolute;
+  left: 50%;
+  margin-left: calc(-0.5 * 40px);
+  top: 36px;
+}
+
+	</style>
+</head>
+<body>
+  <div class="watch">
+  <div class="strap"></div>
+  <div class="face">
+    <div class="numeral n-12"></div>
+    <div class="numeral n-3"></div>
+    <div class="numeral n-6"></div>
+    <div class="numeral n-9"></div>
+    <div class="logo">SWAG</div>
+    <div id="day" class="day"></div>
+    <div id="hours" class="hand hours"></div>
+    <div id="mins" class="hand mins"></div>
+    <div id="secs" class="hand secs"></div>
+    <div class="cntrpt"></div>
+  </div>
+  <div class="crown"></div>
+</div>
+<script type="text/javascript">
+	const hours = document.getElementById('hours'),
+	mins = document.getElementById('mins'),
+	secs = document.getElementById('secs'),
+	day = document.getElementById('day');
+
+let time;
+
+function getTime() {
+	time = new Date(Date.now());
+	return {
+		hours: convertToDeg(time.getHours(), 12),
+		mins: convertToDeg(time.getMinutes(), 60),
+		secs: convertToDeg(time.getSeconds(), 60),
+		day: time.getDate() < 10 ? `0${time.getDate()}` : `${time.getDate()}`
+	};
+}
+
+function convertToDeg(time, factor) {
+	return time * (360 / factor);
+}
+
+function setClock(time) {
+	hours.style.transform = `rotate(${time.hours}deg)`;
+	mins.style.transform = `rotate(${time.mins}deg)`;
+	secs.style.transform = `rotate(${time.secs}deg)`;
+	day.innerHTML = `${time.day}`;
+}
+
+setClock(getTime());
+setInterval(() => {
+	setClock(getTime());
+}, 1000);
+</script>
+</body>
+</html>
