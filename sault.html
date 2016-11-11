@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<title></title>
+		<style type="text/css">
+		*{
+			margin: 0;padding: 0;
+		}
+			#box{
+				width:1080px ;
+				overflow: hidden; 
+				margin: auto;
+			}
+			ul{
+				width: 250px;
+				float: left;
+				margin: 0 10px;
+			}
+			ul li{
+				width: 248px;
+				border: 1px solid green;
+				list-style: none;
+			}
+			ul li img{
+				width: 248px;
+			}
+		</style>
+	</head>
+	<body>
+		<div id="box">
+			<ul>
+				<!--<li><img src="img/1.png" alt="" /></li>-->
+			</ul>
+			<ul>
+				<!--<li><img src="img/1.png" alt="" /></li>-->
+			</ul>
+			<ul>
+				<!--<li><img src="img/1.png" alt="" /></li>-->
+			</ul>
+			<ul>
+				<!--<li><img src="img/1.png" alt="" /></li>-->
+			</ul>
+		</div>
+		<script type="text/javascript">
+		    // 由于内存空间有限图片自己找命名遵循数字+png就行
+			var box=document.getElementById("box");
+			var uls=document.getElementsByTagName("ul");
+			for (var i = 0; i < 16; i++) {
+			        append();
+		      };
+			function append(){
+				var nli=document.createElement("li");
+				var x=Math.ceil(Math.random()*35);
+				nli.innerHTML='<img src="img/'+x+'.png" alt="" />'
+				var ul1=uls[0].offsetHeight;
+				var ul2=uls[1].offsetHeight;
+				var ul3=uls[2].offsetHeight;
+				var ul4=uls[3].offsetHeight;
+				var ulmin=Math.min(ul1,ul2,ul3,ul4);
+				for (var i=0;i<uls.length;i++) {
+					if(uls[i].offsetHeight==ulmin){
+						uls[i].appendChild(nli);
+					};
+				};
+			}
+			//滚轮
+			document.onscroll=function(){
+				var winH=document.documentElement.clientHeight;
+				var docH=document.documentElement.offsetHeight;
+				var scrT=document.body.scrollTop||document.documentElement.scrollTop;
+				if(docH-scrT-winH<500){
+					for (var i=0;i<16;i++) {
+						append();
+					}
+				}
+			}
+		</script>
+	</body>
+</html>
