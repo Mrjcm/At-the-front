@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<style>
+	*{
+		margin: 0px;
+		padding: 0px;
+	}
+	  #left{
+	  	width:133px;
+	  	height:254px;
+	  	/*background: yellow;*/
+	  	position: relative;
+	  	float: left;
+	    margin-top: 20px;
+	    margin-left: 88px;
+	    border: 1px solid black;
+	    overflow: hidden;
+
+	  }
+	   #show1{
+	   	width: 266px;
+	   	height: 508px;
+	   
+   	
+   }
+	  #right{
+	  width: 150px;
+	  height: 150px;
+	 /* background:green;*/
+	  float: left;
+	  margin-left: 30px;
+	  margin-top: 70px;
+	  overflow: scroll;
+	  display: none;
+	  overflow: hidden;
+	  }
+	  #outer{
+	  	width: 133px;
+	  	height: 200px;
+	  	position: relative;
+	  }
+
+	  #left img{
+    width: 26px;
+    height: 29px;
+   /* background:black;*/
+    margin-left: 1px;
+    margin-top: 3px;
+   }
+   #inner{
+   	width: 25px;
+   	height: 25px;
+   	background: gray;
+   	opacity: 0.8;
+   	position: absolute;
+   	left: 0;
+   	top: 0;
+   	/*display: none;*/
+   }
+</style>
+</head>
+<body>
+	<div id="left">
+		<div id="outer">
+			<div id="inner"></div>
+		</div>
+		<div id="lbm">
+			<img src="0.jpg" alt="">
+			<img src="1.jpg" alt="">
+			<img src="2.jpg" alt="">
+			<img src="3.jpg" alt="">
+		</div>
+	</div>
+	<div id="right">
+		<div id="show1"></div>
+	</div>
+	<script>
+	  var arr=['0.jpg','1.jpg','2.jpg','3.jpg'];
+	  var li=document.getElementById('outer');
+	  var img=document.getElementsByTagName('img');
+	  var inner=document.getElementById('inner');
+      var right=document.getElementById('right');
+	  outer.style.background="url("+arr[0]+") ";
+
+	  for(var i=0;i<arr.length;i++){
+       img[i].onclick=function(){
+       	for(var i=0;i<arr.length;i++){
+       	if(img[i]==this){
+       		outer.style.background="url("+arr[i]+") no-repeat";
+       		show1.style.background="url("+arr[i]+") no-repeat";
+       		outer.style.backgroundSize="100%";
+       		show1.style.backgroundSize="100%";
+           }
+       	 }
+       	 // 滤镜和展示框成比例 小图片与展示框图片成比例 
+       	 // 滤镜与小图片父子嵌套 展示框与展示框图片嵌套
+
+        }
+	  }
+    
+ outer.onmousemove=function(event){
+        right.style.display="block";
+        inner.style.display="block";
+        var e = event||window.event;
+		var x = e.clientX-12-88;
+		var y = e.clientY-12-20;
+		var a,b;
+		
+		if(x>=108){
+			x=108;
+		}
+		if(x<0){
+			x=0;
+		}
+		if(y>=175){
+         y=175;
+		}
+		if(y<0){
+			y=0;
+		}
+        inner.style.left=x+"px";
+     	inner.style.top=y+"px";
+     	console.log(x,y);
+     	right.scrollLeft=x*2;
+     	right.scrollTop=y*2;
+}
+ outer.onmouseout=function(){
+        right.style.display="none";
+        inner.style.display="none";
+ }
+</script>
+</body>
+</html>
