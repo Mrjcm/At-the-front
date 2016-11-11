@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>反弹球游戏</title>
+	<style>
+		*{
+			margin: 0;
+			padding: 0;
+		}
+		.outer{
+			width: 800px;
+			height: 500px;
+			margin: 0 auto;
+			border: 1px solid black;
+			position: relative;
+		}
+		.inner{
+			width: 40px;
+			height: 40px;
+			background-color: red;
+			border-radius: 50%;
+			position: absolute;
+		}
+		.bottom{
+			width: 200px;
+			height: 30px;
+			position: absolute;
+			top: 470px;
+			background-color: #666;
+		}
+		.again{
+			width: 500px;
+			height: 500px;
+			background-color: #000;
+			color: red;
+			margin: 0 auto;
+			text-align: center;
+			line-height: 160px;
+			font-size: 100px;
+			display: none;
+		}
+	</style>
+</head>
+<body>
+	<div class="outer" id="outer">
+		<div class="inner" id="inner"></div>
+		<!-- 球 -->
+		<div class="bottom" id="bottom"></div>
+		<!-- 长板 -->
+	</div>
+	<div class="again" id="again">
+		Game  over
+		F5重新开始游戏
+	</div>
+	<script>
+		var outer = document.getElementById('outer');
+		var inner = document.getElementById('inner');
+		var bottom = document.getElementById('bottom');
+		var again = document.getElementById('again');
+		var x=0;
+		var y=0;
+		var speedx = 10;//x每次走的距离
+		var speedy = 5;//y每次走的距离
+		var a,b;//存布尔值
+		var maxW = outer.clientWidth-inner.clientWidth;//x方向的临界值，外边框的宽度-小球的宽度（不含边框）
+		var maxH0 = outer.offsetHeight-inner.offsetHeight;//Game over的临界值
+		var maxH1 = outer.clientHeight-bottom.clientHeight-inner.clientHeight//游戏的临界值，外边框的高度-小球的高度-长板的高度
+		// console.log(outer.clientHeight-bottom.clientHeight-inner.offsetHeight);
+		// console.log(outer.clientWidth-bottom.clientWidth);
+		function move () {
+			x+=speedx;
+			y+=speedy;
+			inner.style.left = x + 'px';//将x的值赋给小球距父层左边的距离
+			inner.style.top = y + 'px';
+			var i = bottom.offsetLeft;//获得长板距父层左边的距离
+			var j = bottom.offsetLeft + 200;
+			var k = inner.offsetLeft;//获得小球距父层左边的距离
+			// console.log(i,j,k);
+			if (x>=maxW) {
+				speedx = -speedx;
+			}
+			if (y>=maxH1&&k>=i&&k<=j) {//如果小球距父层左边的距离在i和j之间
+				speedy = -speedy;
+			}else if(y>=maxH0){
+				outer.style.display = "none";
+				again.style.display = "block";
+			}
+			if (x<=0) {
+				speedx = -speedx;
+			}
+			if (y<=0) {
+				speedy = -speedy;
+			}
+		}
+		time = setInterval(move,30);
+		document.onkeydown = function(event){//键盘按下的时候
+			// alert(event.keyCode);//获取键盘值
+			switch(event.keyCode){
+				case 37:a=true;break;//←
+				case 39:b=true;break;//→
+			}
+		}
+		document.onkeyup = function(event){//键盘松开的时候
+			switch(event.keyCode){
+				case 37:a=false;break;
+				case 39:b=false;break;
+			}
+		}
+		function key () {
+			if (a) {
+				// console.log(bottom.offsetLeft);
+				bottom.style.left = bottom.offsetLeft - 10 + 'px';//向左走，距离父层左边的距离减小
+				if (bottom.offsetLeft<=0) {
+					bottom.style.left = 0 +'px';
+				};
+			};
+			if (b) {
+				// console.log(bottom.offsetLeft);
+				bottom.style.left = bottom.offsetLeft + 10 + 'px';//向右走，距离父层左边的距离增加
+				if (bottom.offsetLeft>=outer.clientWidth-bottom.clientWidth) {
+					bottom.style.left =(outer.clientWidth-bottom.clientWidth) + 'px';//？？？？
+				};
+			};
+		}
+		// key();
+		setInterval(key,10);//手按下键盘的时间，时间不要太长
+	</script>
+</body>
+</html>
