@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <style type="text/css">
+        body{
+            background: rgba(55,25,12,0.7);
+        }
+    </style>
+</head>
+<body>
+<canvas class="loginStar" width="1325" height="579"></canvas>
+<script src="http://code.jquery.com/jquery-latest.js"></script>
+<script>
+    var Stats = function() {
+        var e = Date.now(),
+                t = e,
+                n = 0,
+                i = 1 / 0,
+                a = 0,
+                d = 0,
+                l = 1 / 0,
+                o = 0,
+                s = 0,
+                r = 0,
+                c = document.createElement("div");
+        c.id = "stats",
+                c.addEventListener("mousedown",
+                        function(e) {
+                            e.preventDefault(),
+                                    y(++r % 2)
+                        },
+                        !1),
+                c.style.cssText = "width:80px;opacity:0.9;cursor:pointer";
+        var p = document.createElement("div");
+        p.id = "fps",
+                p.style.cssText = "padding:0 0 3px 3px;text-align:left;background-color:#002",
+                c.appendChild(p);
+        var h = document.createElement("div");
+        h.id = "fpsText",
+                h.style.cssText = "color:#0ff;font-family:Helvetica,Arial,sans-serif;font-size:9px;font-weight:bold;line-height:15px",
+                h.innerHTML = "FPS",
+                p.appendChild(h);
+        var f = document.createElement("div");
+        for (f.id = "fpsGraph", f.style.cssText = "position:relative;width:74px;height:30px;background-color:#0ff", p.appendChild(f); f.children.length < 74;) {
+            var x = document.createElement("span");
+            x.style.cssText = "width:1px;height:30px;float:left;background-color:#113",
+                    f.appendChild(x)
+        }
+        var m = document.createElement("div");
+        m.id = "ms",
+                m.style.cssText = "padding:0 0 3px 3px;text-align:left;background-color:#020;display:none",
+                c.appendChild(m);
+        var u = document.createElement("div");
+        u.id = "msText",
+                u.style.cssText = "color:#0f0;font-family:Helvetica,Arial,sans-serif;font-size:9px;font-weight:bold;line-height:15px",
+                u.innerHTML = "MS",
+                m.appendChild(u);
+        var v = document.createElement("div");
+        for (v.id = "msGraph", v.style.cssText = "position:relative;width:74px;height:30px;background-color:#0f0", m.appendChild(v); v.children.length < 74;) {
+            var g = document.createElement("span");
+            g.style.cssText = "width:1px;height:30px;float:left;background-color:#131",
+                    v.appendChild(g)
+        }
+        var y = function(e) {
+                    switch (r = e) {
+                        case 0:
+                            p.style.display = "block",
+                                    m.style.display = "none";
+                            break;
+                        case 1:
+                            p.style.display = "none",
+                                    m.style.display = "block"
+                    }
+                },
+                T = function(e, t) {
+                    var n = e.appendChild(e.firstChild);
+                    n.style.height = t + "px"
+                };
+        return {
+            REVISION: 11,
+            domElement: c,
+            setMode: y,
+            begin: function() {
+                e = Date.now()
+            },
+            end: function() {
+                var r = Date.now();
+                return n = r - e,
+                        i = Math.min(i, n),
+                        a = Math.max(a, n),
+                        u.textContent = n + " MS (" + i + "-" + a + ")",
+                        T(v, Math.min(30, 30 - n / 200 * 30)),
+                        s++,
+                r > t + 1e3 && (d = Math.round(1e3 * s / (r - t)), l = Math.min(l, d), o = Math.max(o, d), h.textContent = d + " FPS (" + l + "-" + o + ")", T(f, Math.min(30, 30 - d / 100 * 30)), t = r, s = 0),
+                        r
+            },
+            update: function() {
+                e = this.end()
+            }
+        }
+    };
+    window.requestAnimationFrame || (window.requestAnimationFrame = window.webkitRequestAnimationFrame || window.mozRequestAnimationFrame || window.msRequestAnimationFrame || window.oRequestAnimationFrame ||
+            function(t) {
+                return window.setTimeout(t, 1e3 / 60)
+            });
+    var stats = new Stats;
+    !function(t, i) {
+                function n(n, o) {
+                    function e() {
+                        this.x = Math.random() * n.width,
+                                this.y = Math.random() * n.height,
+                                this.vx = h.velocity - .5 * Math.random(),
+                                this.vy = h.velocity - .5 * Math.random(),
+                                this.radius = Math.random() * h.star.width
+                    }
+                    var s = t(n),
+                        a = n.getContext("2d"),
+                        r = {
+                                star: {
+                                    color: "rgba(255, 255, 255, .5)",
+                                    width: 1
+                                },
+                                line: {
+                                    color: "rgba(255, 255, 255, .5)",
+                                    width: .2
+                                },
+                                position: {
+                                    x: 0,
+                                    y: 0
+                                },
+                                width: i.innerWidth,
+                                height: i.innerHeight,
+                                velocity: .1,
+                                length: 140,
+                                distance: 120,
+                                radius: 100,
+                                stars: []
+                            },
+                        h = t.extend(!0,{},r,o);
+                    e.prototype = {
+                        create: function() {
+                            a.beginPath(),
+                                    a.arc(this.x, this.y, this.radius, 0, 4 * Math.PI, !1),
+                                    a.fill()
+                        },
+                        animate: function() {
+                            var t;
+                            for (t = 0; t < h.length; t++) {
+                                var i = h.stars[t];
+                                i.y < 0 || i.y > n.height ? (i.vx = i.vx, i.vy = -i.vy) : (i.x < 0 || i.x > n.width) && (i.vx = -i.vx, i.vy = i.vy),
+                                        i.x += i.vx,
+                                        i.y += i.vy
+                            }
+                        },
+                        line: function() {
+                            var t, i, n, o, e = h.length;
+                            for (n = 0; e > n; n++) for (o = 0; e > o; o++) t = h.stars[n],
+                                    i = h.stars[o],
+                            t.x - i.x < h.distance && t.y - i.y < h.distance && t.x - i.x > -h.distance && t.y - i.y > -h.distance && t.x - h.position.x < h.radius && t.y - h.position.y < h.radius && t.x - h.position.x > -h.radius && t.y - h.position.y > -h.radius && (a.beginPath(), a.moveTo(t.x, t.y), a.lineTo(i.x, i.y), a.stroke(), a.closePath())
+                        }
+                    },
+                    this.createStars = function(){
+                        var t, i, o = h.length;
+                        for (a.clearRect(0, 0, n.width, n.height), i = 0; o > i; i++) h.stars.push(new e),
+                                t = h.stars[i],
+                                t.create();
+                        t.line(),
+                                t.animate()
+                    },
+                    this.setCanvas = function() {
+                        n.width = h.width,
+                        n.height = h.height
+                    },
+                    this.setContext = function() {
+                        a.fillStyle = h.star.color,
+                        a.strokeStyle = h.line.color,
+                        a.lineWidth = h.line.width
+                    },
+                    this.setInitialPosition = function() {
+                        o && o.hasOwnProperty("position") || (h.position = {
+                            x: .5 * n.width,
+                            y: .5 * n.height
+                        })
+                    },
+                            this.loop = function(t) {
+                                t(),
+                                i.requestAnimationFrame(function() {
+                                    stats.begin(),
+                                            this.loop(t),
+                                            stats.end()
+                                }.bind(this))
+                            },
+                            this.bind = function() {
+                                s.on("mousemove",
+                                        function(t) {
+                                            h.position.x = t.pageX - s.offset().left,
+                                                    h.position.y = t.pageY - s.offset().top
+                                        })
+                            },
+                            this.init = function() {
+                                this.setCanvas(),
+                                        this.setContext(),
+                                        this.setInitialPosition(),
+                                        this.loop(this.createStars),
+                                        this.bind()
+                            }
+                }
+                t.fn.constellation = function(t) {
+                    return this.each(function() {
+                        var i = new n(this, t);
+                        i.init()
+                    })
+                }
+            } ($, window),
+            $(".loginStar").constellation({
+                line: {
+                    color: "rgba(31, 251, 243, .8)"
+                }
+            });
+</script>
+</body>
+</html>
