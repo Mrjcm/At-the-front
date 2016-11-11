@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width,user-scalable=no">
+	<title>canvas刮刮卡原理</title>
+	<style>
+		*{margin: 0;padding: 0;}
+		#jiang{
+			width: 200px;
+			height: 60px;
+			background: #f80;
+			text-align: center;
+			line-height: 60px;
+			color: white;
+		}
+		canvas{
+			position: absolute;
+			top: 0;
+			left: 0;
+			/*background: black;*/
+		}
+	</style>
+</head>
+<body>
+	<div id="jiang">端午特等奖</div>
+	<canvas id="canvas"width="200" height="60"></canvas>
+	<script>
+	var cvs = canvas.getContext("2d");
+	console.log(cvs);
+	//画涂层
+	cvs.fillStyle = "gray";
+	cvs.fillRect(0,0,200,60);
+
+
+	document.addEventListener("touchmove",function(e){
+		var x = e.touches[0].clientX;
+		var y = e.touches[0].clientY;
+		console.log(x,y);
+
+
+		//画圆
+		cvs.beginPath();
+		// cvs.fillStyle = "red";
+		cvs.globalCompositeOperation = "destination-out";
+		cvs.arc(x,y,10,0,Math.PI*2,false);
+		cvs.fill();
+		cvs.closePath();
+
+		
+	},false)
+
+	</script>
+</body>
+</html>
