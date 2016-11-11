@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>图片上传</title>
+	<script type="text/javascript" src="js/jquery-1.10.2.min.js"></script>
+</head>
+<body>
+	<div>
+ <input type="file" id="updateCoverImg" class="form-control" name="file"  style="margin-bottom:10px;height:30px;border:none;" />
+</div>
+ <div class="col-lg-6" style="padding-right:0">
+     <img id="updateCoverImgShow" src="" alt="预览图片" style="width:200px;height:200px"/>
+      <span id="updateCoverImgShowSpan"> </span>
+</div>
+<script type="text/javascript">
+	 $("#updateCoverImg").change(function(){
+        $("#updateCoverImgShow").css("display","none");
+        $("#updateCoverImgShowSpan").css("display","inner-block");
+        var prevDiv1 = document.getElementById('updateCoverImgShowSpan');
+        if (this.files && this.files[0])
+        {
+            var reader = new FileReader();
+            reader.onload = function(evt){
+                prevDiv1.innerHTML = '<img style="width:200px;height:200px" src="' + evt.target.result + '" />';
+            }
+            reader.readAsDataURL(this.files[0]);
+        }
+        else
+        {
+            prevDiv1.innerHTML = '<div class="img" style="filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(sizingMethod=scale,src=\'' + this.value + '\'"></div>';
+        }
+    });
+     $("#updateCoverImg").change(function(){
+        $("#updateCoverImgShow").css("display","none");
+        $("#updateCoverImgShowSpan").css("display","inner-block");
+        var prevDiv1 = document.getElementById('updateCoverImgShowSpan');
+        if (this.files && this.files[0])
+        {
+            var reader = new FileReader();
+            reader.onload = function(evt){
+                prevDiv1.innerHTML = '<img style="width:200px;height:200px" src="' + evt.target.result + '" />';
+            }
+            reader.readAsDataURL(this.files[0]);
+        }
+        else
+        {
+            prevDiv1.innerHTML = '<div class="img" style="filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(sizingMethod=scale,src=\'' + this.value + '\'"></div>';
+        }
+    })
+</script>
+</body>
+</html>
