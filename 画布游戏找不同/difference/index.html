@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0" />
+    <style type="text/css">
+        *{
+            padding: 0px;
+            margin: 0px;
+        }
+    </style>
+    <script type="text/javascript" src="../js/system.js"></script>
+    <script type="text/javascript" src="../js/common.js"></script>
+</head>
+<body>
+<canvas id="cvs" name="cvs"
+        width="320" height="480"
+        style="border: dashed 1px #666">
+    你的浏览器不支持画布元素！
+</canvas>
+<script type="text/javascript">
+    var cvs = $$("cvs");
+    var ctx = cvs.getContext("2d");
+    var X,Y;
+    window.onload=load();
+    function load() {
+        ctx.clearRect(2, 2, 320, 480);
+        var img = new Image();
+        img.src = "images/sml3.jpg";
+        img.onload = function () {
+            for (var j = 0; j < 7; j++) {
+                for (var i = 0; i < 5; i++) {
+                    ctx.fillStyle = "#F12150";
+                    ctx.fillRect(2 + 65 * i, 2 + 65 * j, 63, 63)
+                    ctx.drawImage(img, 2 + 65 * i, 2 + 65 * j, 63, 63);
+                }
+            }
+        }
+
+        X = f(0, 4);
+        Y = f(0, 6);
+        arcImg(X, Y);
+        console.log(X + "/" +Y);
+    }
+    function f(min,max) {
+        return Math.floor(Math.random() * (max - (min + 1)) + min);
+    }
+    function arcImg(i,j) {
+       var img = new Image();
+       img.src = "images/sml4.jpg";
+       img.onload = function () {
+           ctx.drawImage(img, 2 + 65 * i, 2 + 65 * j, 63, 63);
+       }
+   }
+    cvs.onclick = function (event) {
+
+        if (event.x > 2 + 65 * X && event.x < 67 + 65 * X && event.y > 2 + 65 * Y && event.y < 67 + 65 * Y) {
+
+            load();
+        }
+
+    }
+</script>
+</body>
+</html>
