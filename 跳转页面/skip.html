@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	 <meta id="viewport" name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimum-scale=1.0, maximum-scale=1.0, minimal-ui">
+	<title>跳转</title>
+	<style type="text/css">
+	   html,body{font-size:28px;background-color: #b0e0e6;}
+		.herfs{width: 100%;height: 100%;text-align: center;font-weight: bold;padding: 36px 0;font-family:"microsoft yahei"; position: relative;}
+		.herfs span{color: #ff5605;display: inline-block;width: 40%;font-size: 56px;position: absolute;left: 15%;top: 15%;}
+		.herfs a{color: #ff5605;}
+		.herfs p{width: 100%;height: 750px;background:url(tu.png) no-repeat -46px center;background-size: 100% 100%;position: relative;}
+
+	</style>
+</head>
+<body>
+	<div class="herfs">
+	    <p>
+	    	<span>请您先登录</span>
+	    </p>
+	</br>
+		 <font color="#666666"><b id="wait">10000</b></font>
+		 <a id="href" href="www.baidu.com" title="跳转链接" target="_self">秒后跳转登录</a>
+
+	</div>
+	<script type="text/javascript">
+	  // 加上window.onload就会出现页面刷新时字体会放大在恢复
+			 // window.onload = function(){
+				var wid =document.documentElement.clientWidth;
+				var scale = wid/750;
+				document.body.style.zoom = scale;
+				window.onresize = function(){
+				var wid =document.documentElement.clientWidth;
+				var scale = wid/750;
+				document.body.style.zoom = scale;
+			}
+		// }
+	</script>
+	<script type="text/javascript">
+		(function() {
+			var wait = document.getElementById('wait'),
+		    href = document.getElementById('href').href;
+			var interval = setInterval(function() {
+			var time = --wait.innerHTML;
+			if (time <= 0) {
+				location.href = href;
+				clearInterval(interval);
+			};
+		}, 1000);
+		})();
+
+	</script>
+	
+</body>
+</html>
