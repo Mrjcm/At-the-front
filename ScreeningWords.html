@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<script src="http://code.jquery.com/jquery-latest.js"></script>
+	<title>表格内容筛选</title>
+</head>
+<body>
+	<table  width="400" border="2" class="table" cellpadding="2" cellspacing="10" id="tab1" style="text-align: center;">
+		关键字筛选:<input type="text" id="filterName">
+		<thead>
+			<tr class="thead">
+				<th>姓名</th>
+				<th>性别</th>
+				<th>暂住地</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr>
+				<td>张山</td>
+				<td>男</td>
+				<td>浙江宁波</td>
+			</tr>
+			<tr>
+				<td>李四</td>
+				<td>男</td>
+				<td>浙江杭州</td>
+			</tr>
+			<tr>
+				<td>王五</td>
+				<td>男</td>
+				<td>湖南长沙</td>
+			</tr>
+			<tr>
+				<td>谢六</td>
+				<td>男</td>
+				<td>河北</td>
+			</tr>
+			<tr>
+				<td>鬼七</td>
+				<td>男</td>
+				<td>河北</td>
+			</tr>
+			<tr>
+				<td>丈八</td>
+				<td>男</td>
+				<td>山东</td>
+			</tr>
+			<tr>
+				<td>萌萌</td>
+				<td>女</td>
+				<td>北京</td>
+			</tr>
+		</tbody>
+	</table>
+	<script type="text/javascript">
+			//表格内容筛选
+			$("#filterName").keyup(function(){
+			$("table tbody tr").hide()
+			.filter(":contains('"+($(this).val() )+"')").show();
+		})
+	</script>
+</body>
+</html>
