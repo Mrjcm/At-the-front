@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>网页字体大小</title>
+	<script src="http://code.jquery.com/jquery-latest.js"></script>
+</head>
+<body>
+	<div class="msg1">
+		<div class="msg_caption">
+			<button class="bigger">放大</button>
+			<button class="smaller">缩小</button>
+			<span class="bigger"></span>
+			<span class="smaller"></span>
+		</div>
+		<div>
+			<p id="para">
+				这是一句话这是一句话这是一句话这是一句话这是一句话这是一句话这是一句话这是一句话这是一句话这是一句话这是一句话这是一句话这是一句话这是一句话这是一句话这是一句话这是一句话这是一句话这是一句话这是一句话这是一句话这是一句话这是一句话这是一句话这是一句话这是一句话这是一句话这是一句话这是一句话这是一句话这是一句话这是一句话这是一句话这是一句话这是一句话这是一句话这是一句话这是一句话这是一句话这是一句话
+			</p>
+		</div>
+	</div>
+	<script type="text/javascript">
+		$(function(){
+			$("#para").css({width:"600px"})
+			$(".msg_caption button").click(function(){
+				var thisEle=$("#para").css("font-size");
+				var textFontSize=parseFloat(thisEle,10);
+				var unit=thisEle.slice(-2);
+				var cName=$(this).attr("class");
+				if (cName=="bigger") {
+					textFontSize+=2;
+				}else if(cName=="smaller"){
+					textFontSize-=2;
+				}
+				$("#para").css("font-size",textFontSize+unit);
+			})
+		})
+	</script>
+</body>
+</html>
