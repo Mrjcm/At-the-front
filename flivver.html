@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<style>
+		.box {
+			width: 300px;
+			margin: 150px auto;
+		}
+		.aircraft {
+			position:absolute;
+			width: 300px;
+			height: 80px;
+			background-color:transparent;
+		}
+		.bodyer {
+			-webkit-animation: _turnline 20s infinite;
+			animation: _turnline 20s infinite;
+			position: relative;
+			width: 50px;
+			height: 50px;
+			left: 50%;
+			margin-left: -25px;
+			border-radius: 50%;
+			background-color: rgba(228, 177, 56, 7);
+			box-shadow: 0px 0px 3px rgba(0,0,0,.7);
+			border: 2px solid white; z-index: 1;
+		}
+		.header {
+			-webkit-animation: _turn .3s infinite;
+			animation: _turn .3s infinite;
+			position: absolute;
+			width: 46px;
+			height: 46px;
+			left: 2px;
+			top: 4px;
+			padding: 0px;
+			border-radius: 50%;
+			background-color: rgba(0,0,0,.8);
+			z-index: 4;
+		}
+		.propeller {
+			-webkit-animation: _turn .3s infinite;
+			animation: _turn .3s infinite;
+			top: 50%;
+			margin-top: -10px;
+			width: 100px;
+			height: 20px;
+			background-color: rgba(220,220,220,.7);
+			box-shadow: 0px 0px 3px rgba(20,20,200,.7);
+			border: 1px solid rgba(0,0,0,.7);
+			position: absolute;
+			border-radius: 50%;
+		}
+		.propeller.left {
+			right: 50%;
+			-webkit-transform-origin: 100% 50%;
+			transform-origin: 100% 50%;
+		}
+		.propeller.left:after {
+			content: "";
+			display: block;
+			width: 30px;
+			height: 30px;
+			border-radius: 0%;
+			border-top: 2px solid rgba(0,0,0,.7);
+			border-radius: 50%;
+			position: absolute;
+			left: -10px;
+			top: 5px;
+			-webkit-transform: rotate(-65deg);
+			transform: rotate(-65deg);
+			opacity: .3;
+		}
+		.propeller.right {
+			left: 50%;
+			-webkit-transform-origin: 0% 50%;
+			transform-origin: 0% 50%;
+		}
+		.propeller.right:after {
+			content: "";
+			display: block;
+			width: 30px;
+			height: 30px;
+			border-radius: 0%;
+			border-top: 2px solid rgba(0,0,0,.7);
+			border-radius: 50%;
+			position: absolute;
+			right: -5px;
+			top: -15px;
+			-webkit-transform: rotate(120deg);
+			transform: rotate(120deg);
+			opacity: .3;
+		}
+		.header:after {
+			content: "";
+			width: 14px;
+			height: 14px;
+			display: block;
+			position: absolute;
+			background-color: rgba(228, 177, 56, 7);
+			border-radius: 50%; left: 50%; top: 50%;
+			margin-left: -7px; margin-top: -5px;
+			border: 1px solid white;
+			box-shadow: 0px 0px 2px rgba(228, 177, 56, 7);
+		}
+		.header:before {
+			content: ""; width: 20px;
+			height: 18px; display: block;
+			position: absolute; left: 50%;
+			margin-left: -10px; top: 50%;
+			margin-top: -7px;
+			border-left: 1px solid rgba(228, 177, 56, 7);
+			border-right: 1px solid rgba(228, 177, 56, 7);
+			border-radius: 30%;
+		}
+		.windshield {
+			position: absolute;
+			border-radius: 50% 50% 0% 0%;
+			width: 50px; height: 20px;
+			background-color: rgba( 255,255,255,.7);
+			border: 1px solid rgba(0,0,0,.7);
+			border-bottom: none;
+			left: 50%;
+			margin-left: -25px;
+			top: -5px;
+			z-index: 3;
+		}
+		.seat {
+			position: absolute;
+			border-radius: 50% 50% 5px 5px;
+			width: 30px; height: 30px;
+			background-color: rgba(0,0,20,.7);
+			left: 50%; margin-left: -15px;
+			top: -15px; z-index: 2;
+			-webkit-animation: _hue 5s infinite;
+			animation: _hue 5s infinite;
+		}
+		.wing {
+			width: 100px;
+			height: 2px;
+			background-color: rgba(20,150,240,.3);
+			position: absolute;
+			z-index: 1;
+			top: 50%;
+			margin-top: -15px;
+			border-radius: 45%;
+			border: 1px solid gray;
+			-webkit-animation: _hue 5s infinite;
+			animation: _hue 5s infinite;
+		}
+		.wing:after {
+			content: "";
+			width: 110%;
+			height: 2px;
+			display: block;
+			background-color: rgba(20,200,200,.7);
+			border-radius: 40%;
+			-webkit-animation: _hue 5s infinite;
+			animation: _hue 5s infinite;
+			position: absolute;
+			left: -5%; top: 15px;
+			box-shadow: 0px 0px 2px rgba(200,200,20,.1);
+		}
+		.wing.left {
+			-webkit-transform-origin: 100% 50%;
+			transform-origin: 100% 50%;
+			right: 40px;
+			box-shadow: -1px 0px 3px rgba(20,20,200,.7);
+		}
+		.wing.left:after {
+			-webkit-transform-origin: 100% 50%;
+			transform-origin: 100% 50%;
+		}
+		.wing.right {
+			-webkit-transform-origin: 0% 50%;
+			transform-origin: 0% 50%;
+			left: 40px;
+			box-shadow: 1px 0px 3px rgba(200,20,20,.7);
+		}
+		.wing.right:after {
+			-webkit-transform-origin: 0% 50%;
+			transform-origin: 0% 50%;
+		}
+		.Missile {
+			position: relative;
+			width: 14px;
+			height: 18px;
+			background-color: rgba(20,20,20,1);
+			left: 50%;
+			margin-left: -7px;
+			bottom: -18px;
+			border-radius: 0% 0% 50% 50%;
+			border: 1px solid white;
+			border-top: none;
+			box-shadow: 0px 1px 2px rgba(0,0,0,.7);
+		}
+		.Missile:after {
+			content: "";
+			width: 6px;
+			height: 6px;
+			background-color: rgba(250,10,10,1);
+			display: block;
+			position: absolute;
+			left: 50%;
+			top: 40%;
+			margin-left: -2.3px;
+			border-radius: 50%;
+		}
+		.landing-gear {
+			width: 2px;
+			height: 10px;
+			background-color: black;
+			position: absolute;
+			bottom: -10px;
+		}
+		.landing-gear.left {
+			left: 20%;
+			-webkit-transform: rotate(30deg);
+			transform: rotate(30deg);
+		}
+		.landing-gear.right {
+			right: 20%;
+			-webkit-transform:
+			rotate(-30deg);
+			transform: rotate(-30deg);
+		}
+		.wheel {
+			background-color: rgba(200,200,200,1);
+			border: 1px solid rgba(0,0,0,.7);
+			box-shadow: 0px 2px 3px rgba(200,200,200,.7);
+			width: 14px;
+			height: 22px;
+			border-radius: 40%;
+			position: absolute;
+			left: -7px; bottom: -20px;
+		}
+		.wheel:after {
+			content: "";
+			display: block;
+			position: absolute;
+			width: 8px;
+			height:16px;
+			background-color: rgba(255,255,255,.8);
+			border-radius: 40%;
+			top: 0px;
+			left: 50%;
+			margin-left: -4px;
+		}
+		.wheel:before {
+			content: "";
+			display: block;
+			position: absolute;
+			width: 18px;
+			height: 6px;
+			border: 1px solid rgba(0,0,0,.7);
+			top: 40%;
+			left: -3px;
+			z-index: -12;
+		}
+		.landing-gear.left .wheel {}
+		.landing-gear.right .wheel {}
+		@-webkit-keyframes _turn {
+			0% { -webkit-transform: rotate(0deg); transform: rotate(0deg); }
+			25% { -webkit-transform: rotate(180deg); transform: rotate(180deg); }
+			50% { -webkit-transform: rotate(360deg); transform: rotate(360deg); }
+			75% { -webkit-transform: rotate(270deg); transform: rotate(270deg); }
+			100% { -webkit-transform: rotate(720deg); transform: rotate(720deg); }
+		}
+		@keyframes _turn {
+			0% { -webkit-transform: rotate(0deg); transform: rotate(0deg); }
+			25% { -webkit-transform: rotate(180deg); transform: rotate(180deg); }
+			50% { -webkit-transform: rotate(360deg); transform: rotate(360deg); }
+			75% { -webkit-transform: rotate(270deg); transform: rotate(270deg); }
+			100% { -webkit-transform: rotate(720deg); transform: rotate(720deg); }
+		}
+		@-webkit-keyframes _turnline {
+			0% { -webkit-transform: rotate(0deg); transform: rotate(0deg); left: 0px; top: 0px; }
+			12.5% { -webkit-transform: rotate(45deg); transform: rotate(45deg); bottom: 200px; left: -200px; }
+			25% { -webkit-transform: rotate(180deg); transform: rotate(180deg); left: 50px; top: -20px;  }
+			50% { -webkit-transform: rotate(360deg); transform: rotate(360deg); top: 300px; right: -10px; }
+			75% { -webkit-transform: rotate(270deg); transform: rotate(270deg); right: 30px; top: 450px; }
+			87.5% { -webkit-transform: rotate(0deg); transform: rotate(0deg); left: 0px; top: 0px; }
+			100% { -webkit-transform: rotate(720deg); transform: rotate(720deg); bottom: -20px; left: 30px; }
+		}
+		@keyframes _turnline {
+			0% { -webkit-transform: rotate(0deg); transform: rotate(0deg); left: 0px; top: 0px; }
+			12.5% { -webkit-transform: rotate(45deg); transform: rotate(45deg); bottom: 200px; left: -200px; }
+			25% { -webkit-transform: rotate(180deg); transform: rotate(180deg); left: 50px; top: -20px;  }
+			50% { -webkit-transform: rotate(360deg); transform: rotate(360deg); top: 300px; right: -10px; }
+			75% { -webkit-transform: rotate(270deg); transform: rotate(270deg); right: 30px; top: 450px; }
+			87.5% { -webkit-transform: rotate(0deg); transform: rotate(0deg); left: 0px; top: 0px; }
+			100% { -webkit-transform: rotate(720deg); transform: rotate(720deg); bottom: -20px; left: 30px; }
+		}
+	</style>
+</head>
+<body>
+    <div class="box">
+        <div class="aircraft">
+            <div class="bodyer">
+                <div class="header">
+                    <div class="propeller left"></div>
+                    <div class="propeller right"></div>
+                </div>
+                <div class="windshield"></div>
+                <div class="seat"></div>
+                <div class="wing left">
+                    <div class="Missile"></div>
+                </div>
+                <div class="wing right">
+                    <div class="Missile"></div>
+                </div>
+                <div class="landing-gear left">
+                    <div class="wheel"></div>
+                </div>
+                <div class="landing-gear right">
+                    <div class="wheel"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</body>
+</html>
