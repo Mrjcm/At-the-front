@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="apple-mobile-web-app-capable" content="yes">
+	<meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,minimum-scale=1.0,user-scalable=no">
+	<title>Document</title>
+	<link rel="stylesheet" type="text/css" href="http://sandbox.runjs.cn/uploads/rs/200/ptvnx6ur/reset.css">
+	<script type="text/javascript" src="http://sandbox.runjs.cn/uploads/rs/200/ptvnx6ur/iscroll.js"></script>
+	<script type="text/javascript" src="http://sandbox.runjs.cn/uploads/rs/200/ptvnx6ur/zepto.js"></script>
+	<style type="text/css">
+	body{background-color: #ebebeb;}
+		.top{
+			top: 0;
+		}
+		.footer{
+			bottom: 0;
+		}
+		.top,.footer{
+			position: fixed;
+			left: 0;
+			text-align: center;
+			line-height: 50px;
+			height: 50px;
+			width: 100%;
+			background-color: #0dcecb;
+			color: #fff;
+			z-index: 100;
+		}
+		#wrapper{
+			position: absolute;
+			left: 0;
+			top: 50px;
+			bottom: 50px;
+			width: 100%;
+			 background-color: #ebebeb; ;
+			z-index: 10;
+		}
+		.news-lists .item{
+			/*height: 40px;*/
+			line-height: 40px;
+			/*border-bottom: 1px solid #CFCFCF;*/
+		}
+		.news-lists{
+			position: relative;
+		}
+		#pullDown, #pullUp {
+			background:#fff;
+			height:40px;
+			line-height:40px;
+			padding:5px 10px;
+			border-bottom:1px solid #ccc;
+			font-weight:bold;
+			font-size:14px;
+			color:#888;
+		}
+		#pullDown .pullDownIcon, #pullUp .pullUpIcon  {
+			display:block; float:left;
+			width:40px; height:40px;
+			background:url(http://sandbox.runjs.cn/uploads/rs/200/ptvnx6ur/pull-icon@2x.png) 0 0 no-repeat;
+			-webkit-background-size:40px 80px;
+			background-size:40px 80px;
+			-webkit-transition-property:-webkit-transform;
+			-webkit-transition-duration:250ms;
+		}
+		#pullDown .pullDownIcon {
+			-webkit-transform:rotate(0deg) translateZ(0);
+		}
+		#pullUp .pullUpIcon  {
+			-webkit-transform:rotate(-180deg) translateZ(0);
+		}
+
+		#pullDown.flip .pullDownIcon {
+			-webkit-transform:rotate(-180deg) translateZ(0);
+		}
+
+		#pullUp.flip .pullUpIcon {
+			-webkit-transform:rotate(0deg) translateZ(0);
+		}
+
+		#pullDown.loading .pullDownIcon, #pullUp.loading .pullUpIcon {
+			background-position:0 100%;
+			-webkit-transform:rotate(0deg) translateZ(0);
+			-webkit-transition-duration:0ms;
+
+			-webkit-animation-name:loading;
+			-webkit-animation-duration:2s;
+			-webkit-animation-iteration-count:infinite;
+			-webkit-animation-timing-function:linear;
+		}
+
+		@-webkit-keyframes loading {
+			from { -webkit-transform:rotate(0deg) translateZ(0); }
+			to { -webkit-transform:rotate(360deg) translateZ(0); }
+		}
+		/*加载*/
+		html{font-size: 30px;font-family:微软雅黑;font-weight: bold;}
+		.news{list-style: none;overflow: hidden;margin-top:30px;}
+		.time{text-align: center;display: inline-block;min-width: 140px;height: 40px;border-radius: 10px;background-color: #cecece;margin-left: 40%;color: #fff;line-height: 40px;padding: 10px 10px;font-size: 20px;}
+		.words{padding:36px 36px 0 30px ;position: relative; }
+		.words img{width: 80px;height: 80px;display: inline-block;float: left;}
+		.words span{background: #fff;display: inline-block;width: 500px;float: left;border: 2px solid #666666;margin-left: 20px;padding: 20px 20px;line-height: 38px;text-indent: 2em;border-radius: 10px;-webkit-border-radius: 10px;-o-border-radius: 10px;}
+		.words span:after{content: "";position: absolute;top: 70px;left: 123px;width: 14px;height: 14px;border: 2px solid #666666;border: 2px solid transparent;border-left-color: #666666;border-bottom-color: #666666;transform:rotate(45deg);-ms-transform:rotate(45deg);-moz-transform:rotate(45deg);-webkit-transform:rotate(45deg);-o-transform:rotate(45deg);background-color: #fff;}
+		.clickmore{height: 60px;width: 100%;background: #aaa;text-align: center;line-height: 60px;position: fixed;bottom: 0;}
+		.news_list{padding-bottom: 60px;}
+	</style>
+</head>
+<body>
+	<div id="wrapper">
+		<div id="scroller">
+			<div id="pullDown">
+				<span class="pullDownIcon"></span>
+				<!-- <span class="pullDownLabel">下拉刷新...</span> -->
+			</div>
+
+			<div class="news-lists" id="news-lists">
+			<?php if($message){ foreach($message as $k => $v){ ?>
+				<div class="item news">
+						<p class="time">
+							<span></span>
+							<span><?php echo $v[addtime]; ?></span>
+						</p>
+						<p class="words">
+							<img src="http://www.maxtv.cn/Public/Home/my/images/logo_magic.jpg">
+							<span><?php echo htmlspecialchars_decode($v['info']); ?></span>
+						</p>
+				</div>
+			<?php } }else{ ?>
+
+				<div class="item news">
+						<p class="time">
+							<span></span>
+							<span><?php echo $v[addtime]; ?></span>
+						</p>
+						<p class="words">
+							<img src="http://ww3.sinaimg.cn/large/44287191gw1excbq5iwm6j21400min3o.jpg">
+							<span>暂无数据</span>
+						</p>
+				</div>
+				<?php } ?>
+				<!--
+				<div class="item news">
+						<p class="time">
+							<span>昨天</span>
+							<span>15:30</span>
+						</p>
+						<p class="words">
+							<img src="http://ww3.sinaimg.cn/large/44287191gw1excbq5iwm6j21400min3o.jpg">
+							<span>消息昨日a股呈高开高走的强势特征，中国石油，中国人寿等中字号头股大幅上涨，中信银行等中小银行股表现比较活跃，对指数有明显推动作用。</span>
+						</p>
+				</div>
+				<div class="item news">
+						<p class="time">
+							<span>昨天</span>
+							<span>15:30</span>
+						</p>
+						<p class="words">
+							<img src="http://ww3.sinaimg.cn/large/44287191gw1excbq5iwm6j21400min3o.jpg">
+							<span>消息昨日a股呈高开高走的强势特征，中国石油，中国人寿等中字号头股大幅上涨，中信银行等中小银行股表现比较活跃，对指数有明显推动作用。</span>
+						</p>
+				</div>
+				<div class="item news">
+						<p class="time">
+							<span>昨天</span>
+							<span>15:30</span>
+						</p>
+						<p class="words">
+							<img src="http://ww3.sinaimg.cn/large/44287191gw1excbq5iwm6j21400min3o.jpg">
+							<span>消息昨日a股呈高开高走的强势特征，中国石油，中国人寿等中字号头股大幅上涨，中信银行等中小银行股表现比较活跃，对指数有明显推动作用。</span>
+						</p>
+				</div>
+			</div>-->
+			<div id="pullUp" style="margin-top: 20px; ">
+				<span class="pullUpIcon"></span><span class="pullUpLabel">上拉加载更多...</span>
+			</div>
+		</div>
+	</div>
+	<script type="text/javascript">
+
+	var wid =document.documentElement.clientWidth;
+			var scale = wid/750;
+			document.body.style.zoom = scale;
+			window.onresize = function(){
+			var wid =document.documentElement.clientWidth;
+			var scale = wid/750;
+			document.body.style.zoom = scale;
+		}
+	// --------------------------------------------
+		var data,
+		myScroll,
+		pullDownEl, pullDownOffset,
+		pullUpEl, pullUpOffset,
+		generatedCount = 0;
+
+
+	function pullUpAction () {
+		// 调用ajax
+			getmore();
+	}
+
+	//初始化绑定iScroll控件
+	document.addEventListener('touchmove', function (e) { e.preventDefault(); }, false);
+	document.addEventListener('DOMContentLoaded', loaded, false);
+
+	function loaded() {
+		pullDownEl = document.getElementById('pullDown');
+		pullDownOffset = pullDownEl.offsetHeight;
+		pullUpEl = document.getElementById('pullUp');
+		pullUpOffset = pullUpEl.offsetHeight;
+		// console.log(pullUpEl)
+		/**
+		 * 初始化iScroll控件
+		 */
+		myScroll = new iScroll('wrapper', {
+			vScrollbar : false,
+			topOffset : pullDownOffset,
+			onRefresh : function () {
+				if (pullDownEl.className.match('loading')) {
+					pullDownEl.className = '';
+					pullDownEl.querySelector('.pullDownLabel').innerHTML = '下拉刷新...';
+				} else if (pullUpEl.className.match('loading')) {
+					pullUpEl.className = '';
+					pullUpEl.querySelector('.pullUpLabel').innerHTML = '上拉加载更多...';
+				}
+			},
+			onScrollMove: function () {
+				if (this.y > 5 && !pullDownEl.className.match('flip')) {
+					pullDownEl.className = 'flip';
+					pullDownEl.querySelector('.pullDownLabel').innerHTML = '松手开始更新...';
+					this.minScrollY = 0;
+				} else if (this.y < (this.maxScrollY - 5) && !pullUpEl.className.match('flip')) {
+					pullUpEl.className = 'flip';
+					pullUpEl.querySelector('.pullUpLabel').innerHTML = '松手开始更新...';
+				}
+			},
+			onScrollEnd: function () {
+				if (pullDownEl.className.match('flip')) {
+					pullDownEl.className = 'loading';
+					pullDownEl.querySelector('.pullDownLabel').innerHTML = '加载中...';
+					pullDownAction();
+				} else if (pullUpEl.className.match('flip')) {
+					pullUpEl.className = 'loading';
+					pullUpEl.querySelector('.pullUpLabel').innerHTML = '加载中...';
+					pullUpAction();
+				}
+			}
+		});
+	}
+	// 线上地址http://www.maxtv.cn/Newsapi/Message/showMessage
+	 var p=2;
+	function getmore(){
+       				$.ajax({
+					url:'/Newsapi/Message/showMessage',
+					type:'GET',
+					dataType:'JSON',
+					data:{p:p,l:5},
+
+					success:function(data){
+						var datas=JSON.parse(data);
+						var allp=datas.count
+						// console.log(datas.message)
+						var str="";
+						$.each(datas.message,function(){
+							// console.log(this);
+							 str+='<li class="news">'+
+								'<p class="time">'+
+									'<span>'+this.addtime+'</span>'+
+									'<span></span>'+
+								'</p>'+
+								'<p class="words">'+
+									'<img src="http://www.maxtv.cn/Public/Home/my/images/logo_magic.jpg">'+
+									'<span>'+this.info+'</span>'+
+							'</p>'+
+						'</li>';
+						})
+						setTimeout(function () {
+							$(str).insertBefore('#pullUp');
+						// $('#news-lists').append(str);
+							myScroll.refresh();
+						}, 600);
+						if (p>allp/5) {
+							$(".pullUpLabel").html("暂无更多数据")
+							return false;
+						}else{
+							p++;
+						}
+						// console.log(p)
+						// return false;
+					},
+
+					error:function(){
+						console.log('error!');
+					},
+					complete:function(){
+						//重置发送标志
+						window.sending=false;
+					}
+				});
+       			}
+
+       			if (data==1) {
+       				$("#aa").css({
+       					background:red
+       				})
+       			}else if (data==2){
+       				$("#aa").css({
+       					background:yellow
+       				})
+       			}
+	</script>
+</body>
+</html>
